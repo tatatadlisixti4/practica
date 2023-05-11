@@ -31,29 +31,55 @@ for modelo in modelos:
             
             if batch_size in ['8', '16', '32']:
                 ubicacion2_db = ruta_modelos_trt + modelo + '_batch' + batch_size + '_' + tipo + '.trt'
-                if batch_size == '32':
-                    if modelo =='tongji':
-                        linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
-                        linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                if tipo in ['fp16', 'int8']:
+                    if batch_size == '32':
+                        if modelo =='tongji':
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        else:
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --' + tipo +  ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                    elif batch_size =='16':
+                        if modelo =='tongji':
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db  + ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        else:
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db  + ' --' + tipo  + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
                     else:
-                        linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --' + tipo +  ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
-                        linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
-                elif batch_size =='16':
-                    if modelo =='tongji':
-                        linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db  + ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
-                        linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
-                    else:
-                        linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db  + ' --' + tipo  + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
-                        linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        if modelo =='tongji':
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db +  ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        else:
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
                 else:
-                    if modelo =='tongji':
-                        linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db +  ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
-                        linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                    print('')
+                    if batch_size == '32':
+                        if modelo =='tongji':
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        else:
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                    elif batch_size =='16':
+                        if modelo =='tongji':
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db  + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        else:
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db  + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
                     else:
-                        linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --' + tipo + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
-                        linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        if modelo =='tongji':
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x64x64x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+                        else:
+                            linea1 = '/usr/src/tensorrt/bin/trtexec --onnx=' + ubicacion1_db + ' --saveEngine=' + ubicacion2_db + ' --shapes=' + '\\' + "'image" + "\\':" + batch_size + 'x128x128x1'
+                            linea2 = '/usr/src/tensorrt/bin/trtexec --loadEngine=' + ubicacion2_db + ' > ' + modelo + '_batch' + batch_size + '_' + tipo + '.txt'
+
                 file.write(linea1 + os.linesep)
                 file.write(linea2)
+
             else:
 
                 if tipo == 'fp32':
@@ -79,5 +105,5 @@ for modelo in modelos:
             os.rename(trt, trt_sh)
             comando = 'cd ' + ruta + ' && sh ' + 'trt_quantization_' + tipo + '_' + modelo + '_' + batch_size + '.sh'
             #print(comando)
-            os.system(comando)
+            #os.system(comando)
 
