@@ -1,0 +1,2 @@
+/usr/src/tensorrt/bin/trtexec --onnx=/home/rhernandez/onnx_models/casia_dynamic_batch.onnx --saveEngine=/home/rhernandez/modelos_trt/casia_batch16_fp16.trt --fp16 --shapes=\'image\':16x128x128x1
+/usr/src/tensorrt/bin/trtexec --loadEngine=/home/rhernandez/modelos_trt/casia_batch16_fp16.trt > casia_batch16_fp16.txt

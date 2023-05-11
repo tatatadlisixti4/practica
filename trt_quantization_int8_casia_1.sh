@@ -1,0 +1,2 @@
+/usr/src/tensorrt/bin/trtexec --onnx=/home/rhernandez/onnx_models/casia.onnx --saveEngine=/home/rhernandez/modelos_trt/casia_batch1_int8.trt --int8
+/usr/src/tensorrt/bin/trtexec --loadEngine=/home/rhernandez/modelos_trt/casia_batch1_int8.trt > casia_batch1_int8.txt
