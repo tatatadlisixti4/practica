@@ -5,6 +5,7 @@ import cv2
 import argparse
 import numpy as np
 import time
+from tensorflow import keras
 from keras.utils import to_categorical
 import tensorrt as trt
 from TensorRT import common
